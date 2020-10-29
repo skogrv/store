@@ -1,0 +1,146 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% load ratings %}
+{% load crispy_forms_filters %}
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script src="../../static/script.js"></script>
+
+
+{% endblock %}
+{% block content %}
+
+<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+    {% for p in photos %}
+      <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+    {% endfor %}
+    </ol>
+    <!--/.Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      {% for p in photos %}
+      <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+        <img class="d-block photo_carousel w-25" src="{{p.images.url}}" style="margin-left: 28%"
+          alt="First slide">
+      </div>
+      {% endfor %}
+    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true" style="color: black"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+  </div>
+
+    <div class="order_card">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ order.title }}
+                        {% if is_favourite %}
+                            <a href="{% url 'favourite' id=order.id %}">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'favourite' id=order.id %}">
+                                <i class="far fa-heart"></i>
+                            </a>
+                    {% endif %}</h5>
+                    <p class="card-text">{{ order.description }}</p>
+                    <p>Price: {{ order.price }}</p>
+                    <p class="card-text"><small class="text-muted">Created at {{ order.created_at }}</small></p>
+                    <form action="{% url 'order' id=order.id %}" method="POST">
+                        {{ comment_form }}
+
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    {% for comment in page_obj %}
+
+
+                        <div class="container">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="{{ comment.author.profile.image.url }}" class="img img-rounded img-fluid"/>
+                                        <p class="text-secondary text-center">{{ user.profile.created_at }}</p>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p>
+                                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.author }}</strong></a><br>
+                                            {% if comment.rating == 1 %}
+                                                <i class="fas fa-star icon_rate"></i>
+                                            {% endif %}
+                                            {% if comment.rating == 2 %}
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                            {% endif %}
+                                            {% if comment.rating == 3 %}
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                            {% endif %}
+                                            {% if comment.rating == 4 %}
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                            {% endif %}
+                                            {% if comment.rating == 5 %}
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                                <i class="fas fa-star icon_rate"></i>
+                                            {% endif %}
+                                        {{ comment.is_liked }}
+                                        </p>
+                                        <div class="clearfix"></div>
+                                        <p>{{ comment.comment }}</p>
+                                        {% if user in comment.liked.all %}
+                                            <a class="float-right btn text-white btn-danger" href="{% url 'like' comment.id %}"><i class="fas fa-thumbs-up"></i> Dislike</a>
+                                        {% else %}
+                                            <a class="float-right btn text-white btn-success" href="{% url 'like' comment.id %}"> <i class="far fa-thumbs-up"></i> Like</a>
+                                        {% endif %}
+                                        {% if comment.author == request.user %}
+                                            <a class="float-right btn btn-outline-primary ml-2" href="{% url 'delete_comment' pk=comment.pk %}">
+                                                <i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        {% endif %}
+                                        <div id="loadMore" style="">
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "store/base.html" %}
+{% block content %}
+    <div class="list_container">
+        {% for listing in orders %}
+            <div class="card" style="width: 18rem;">
+                <img src="https://mir-s3-cdn-cf.behance.net/user/276/110659178842.5c1b604bb2cea.jpg" class="card-img-top" alt="new">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'order' id=listing.id %}">{{ listing.title }}</a><br></h5>
+                    <p class="card-text">{{ listing.description|slice:":100" }}</p>
+                    {% if listing.auth == request.user %}
+                        <a class="btn btn-primary" href={% url 'edit_order' pk=listing.pk %}>Edit</a>
+                        <a href="{% url 'remove' listing.pk %}" class="remove">Delete</a>
+                    {% elif listing.auth != request.user %}
+                        <a href="#" class="btn btn-primary">Buy</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
