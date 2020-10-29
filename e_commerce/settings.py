@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 import os
+import psycopg2
 import dj_database_url
 from getpass import getpass
 
@@ -150,6 +151,9 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 django_heroku.settings(locals())
+
+DATABASE_URL = os.environ['127.0.0.1']
+
 
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
