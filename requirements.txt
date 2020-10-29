@@ -84,7 +84,6 @@ ptyprocess==0.6.0
 pyasn1==0.4.2
 pycparser==2.20
 pycrypto==2.6.1
-dj-database-url==0.5.0
 pycryptodome==3.9.8
 pyinotify==0.9.6
 PyJWT==1.7.1
