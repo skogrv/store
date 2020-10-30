@@ -1,5 +1,0 @@
-export EMAIL_HOST_USER="skogrv@gmail.com"
-export EMAIL_HOST_PASSWORD="kqzrvzgbyjnzhszu"
-export DB_PASS="igor228135"
-export SECRET_KEY="4116cba9ac4dd873ad573dc33396d223b8bf01cff7f5ea56"
-export DEBUG_VALUE="True"
