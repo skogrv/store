@@ -30,7 +30,7 @@ SECRET_KEY = '=t*vlzy7tf81q5=gkwe)*k7b8t$(4h+a&it-8lmn52+w_3sz!)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['newdjangoappcommerce.herokuapp.com']
+ALLOWED_HOSTS = ['newdjangoappcommerce.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
