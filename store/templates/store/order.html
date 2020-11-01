@@ -20,10 +20,10 @@
     </ol>
     <!--/.Indicators-->
     <!--Slides-->
-    <div class="carousel-inner" role="listbox">
+    <div class="carousel-inner w-50" role="listbox">
       {% for p in photos %}
       <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
-        <img class="d-block photo_carousel w-25" src="{{p.images.url}}" style="margin-left: 28%"
+        <img class="d-block photo_carousel w-100" src="{{p.images.url}}" style="margin-left: 28%"
           alt="First slide">
       </div>
       {% endfor %}
