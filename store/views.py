@@ -21,8 +21,6 @@ def create_listing(request):
         description = request.POST.get('description')
         price = request.POST.get('price')
 
-
-
         order = Listing.objects.create(
             title=title,
             description=description,
@@ -32,10 +30,11 @@ def create_listing(request):
         order.save()
 
         for file_num in range(0, int(length)):
-            ListingImage.objects.create(
+            listing_image = ListingImage.objects.create(
                 listing=order,
                 images=request.FILES.get(f'images{file_num}')
             )
+            listing_image.save()
 
     return render(request, 'store/create_view.html')
 
@@ -57,7 +56,8 @@ class EditOrder(UpdateView):
 
 def listings(request):
     orders = Listing.objects.all()
-    return render(request, 'store/listings.html', {'orders': orders})
+    listing_images = ListingImage.objects.all()
+    return render(request, 'store/listings.html', {'orders': orders, 'listing_images': listing_images})
 
 
 def order_detail(request, id):
