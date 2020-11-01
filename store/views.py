@@ -117,8 +117,10 @@ def like(request, id):
 def favourite_list(request):
     user = request.user
     fav_orders = user.favourite.all()
+    listing_images = ListingImage.objects.all()
     context = {
-        'fav_orders': fav_orders
+        'fav_orders': fav_orders,
+        'listing_images': listing_images
     }
     return render(request, 'store/favourite_orders.html', context)
 
