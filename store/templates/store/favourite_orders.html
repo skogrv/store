@@ -1,0 +1,21 @@
+{% extends "store/base.html" %}
+{% block content %}
+    <div class="list_container">
+        {% for order in fav_orders %}
+            <div class="card" style="width: 18rem;">
+                {% for image in listing_images %}
+                    {% if order.id == image.listing_id %}
+                        <img src='{{ image.images.url }}' class="card-img-top" alt="new">
+                    {% endif %}
+                {% endfor %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'order' id=order.id %}">{{ order.title }}</a><br></h5>
+                    <p class="card-text">{{ order.description|slice:":100" }}</p>
+                </div>
+            </div>
+
+        {% empty %}
+            <h2>No favourite orders</h2>
+        {% endfor %}
+    </div>
+{% endblock %}

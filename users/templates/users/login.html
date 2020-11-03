@@ -1,0 +1,24 @@
+{% extends 'store/base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <div class="fadeIn first">
+          <h2 id = "login_name">Login</h2>
+        </div>
+
+        <!-- Login Form -->
+        <form class='texting'>
+            {{ form|crispy}}
+            <button type="submit" class="btn btn-primary" id="btn_form">Sign in</button>
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+          <a class="underlineHover" href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+      </div>
+</div>
+{% endblock %}

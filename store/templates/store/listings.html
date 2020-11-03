@@ -1,0 +1,24 @@
+{% extends "store/base.html" %}
+{% block content %}
+    <div class="list_container">
+        {% for listing in orders %}
+            <div class="card" style="width: 18rem;">
+                {% for image in listing_images %}
+                    {% if listing.id == image.listing_id %}
+                        <img src='{{ image.images.url }}' class="card-img-top" alt="new">
+                    {% endif %}
+                {% endfor %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'order' id=listing.id %}">{{ listing.title }}</a><br></h5>
+                    <p class="card-text">{{ listing.description|slice:":100" }}</p>
+                    {% if listing.auth == request.user %}
+                        <a class="btn btn-primary" href={% url 'edit_order' pk=listing.pk %}>Edit</a>
+                        <a href="{% url 'remove' listing.pk %}" class="remove">Delete</a>
+                    {% elif listing.auth != request.user %}
+                        <a href="#" class="btn btn-primary">Buy</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
