@@ -208,7 +208,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 }
 
 .card-img-top {
-  width: 100% !important;
+  width: 100%;
 }
 
 .card > .card-img-top:not(:first-child) {
