@@ -13,6 +13,7 @@ import os
 import psycopg2
 import dj_database_url
 from getpass import getpass
+from decouple import config
 
 import django_heroku
 
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=t*vlzy7tf81q5=gkwe)*k7b8t$(4h+a&it-8lmn52+w_3sz!)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'star_ratings',
+    'storages',
     'pure_pagination',
     'django_starfield',
     'django.contrib.admin',
@@ -147,8 +149,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
