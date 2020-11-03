@@ -44,7 +44,7 @@ def delete_order(request, id):
     order_to_delete = get_object_or_404(Listing, id=id)
     if request.method =="POST":
         order_to_delete.delete()
-        return redirect('/')
+        return redirect('listings')
     return render(request, "store/delete_order.html")
 
 class EditOrder(UpdateView):
