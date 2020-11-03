@@ -22,8 +22,8 @@
     <!--Slides-->
     <div class="carousel-inner w-100" role="listbox">
       {% for p in photos %}
-      <div class="carousel-item w-50{% if forloop.counter0 == 0 %} active {% endif %}">
-        <img class="d-block photo_carousel w-100" src="{{p.images.url}}" style="margin-left: 28%"
+      <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+        <img class="d-block photo_carousel w-50" src="{{p.images.url}}" style="margin-left: 28%"
           alt="First slide">
       </div>
       {% endfor %}
