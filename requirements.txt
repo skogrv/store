@@ -1,3 +1,4 @@
+alembic==1.4.3
 appdirs==1.4.4
 apturl==0.5.2
 asgiref==3.3.0
@@ -5,9 +6,10 @@ Babel==2.8.0
 bcrypt==3.2.0
 blinker==1.4
 boto3==1.16.10
-botocore==1.19.10
+botocore==1.19.9
 Brlapi==0.7.0
 certifi==2019.11.28
+cffi==1.14.3
 chardet==3.0.4
 Click==7.0
 colorama==0.4.3
@@ -87,6 +89,7 @@ psutil==5.5.1
 psycopg2==2.8.5
 pyasn1==0.4.2
 pycairo==1.16.2
+pycparser==2.20
 pycrypto==2.6.1
 pycryptodome==3.9.8
 pycups==1.9.73
